@@ -1,0 +1,10 @@
+c:\users\seth\documents\visual studio 2015\Projects\KahootConverter2\KahootConverter2\bin\Debug\KahootConverter2.exe.config
+c:\users\seth\documents\visual studio 2015\Projects\KahootConverter2\KahootConverter2\bin\Debug\KahootConverter2.exe
+c:\users\seth\documents\visual studio 2015\Projects\KahootConverter2\KahootConverter2\bin\Debug\KahootConverter2.pdb
+c:\users\seth\documents\visual studio 2015\Projects\KahootConverter2\KahootConverter2\obj\Debug\KahootConverter2.csprojResolveAssemblyReference.cache
+c:\users\seth\documents\visual studio 2015\Projects\KahootConverter2\KahootConverter2\obj\Debug\KahootConverter2.Form1.resources
+c:\users\seth\documents\visual studio 2015\Projects\KahootConverter2\KahootConverter2\obj\Debug\KahootConverter2.Properties.Resources.resources
+c:\users\seth\documents\visual studio 2015\Projects\KahootConverter2\KahootConverter2\obj\Debug\KahootConverter2.csproj.GenerateResource.Cache
+c:\users\seth\documents\visual studio 2015\Projects\KahootConverter2\KahootConverter2\obj\Debug\KahootConverter2.exe
+c:\users\seth\documents\visual studio 2015\Projects\KahootConverter2\KahootConverter2\obj\Debug\KahootConverter2.pdb
+c:\users\seth\documents\visual studio 2015\Projects\KahootConverter2\KahootConverter2\obj\Debug\KahootConverter2.csproj.ResolveComReference.cache
