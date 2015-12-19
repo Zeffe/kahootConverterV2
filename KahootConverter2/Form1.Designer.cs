@@ -33,13 +33,18 @@
             this.nmQuestions = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtUser = new System.Windows.Forms.TextBox();
-            this.txtPass = new System.Windows.Forms.TextBox();
             this.btnLogin = new System.Windows.Forms.Button();
+            this.txtPass = new System.Windows.Forms.TextBox();
+            this.txtUser = new System.Windows.Forms.TextBox();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtTitle = new System.Windows.Forms.TextBox();
+            this.btnCreate = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nmQuestions)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtSite
@@ -100,20 +105,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Kahoot Login";
             // 
-            // txtUser
-            // 
-            this.txtUser.Location = new System.Drawing.Point(6, 19);
-            this.txtUser.Name = "txtUser";
-            this.txtUser.Size = new System.Drawing.Size(124, 20);
-            this.txtUser.TabIndex = 0;
-            // 
-            // txtPass
-            // 
-            this.txtPass.Location = new System.Drawing.Point(6, 45);
-            this.txtPass.Name = "txtPass";
-            this.txtPass.Size = new System.Drawing.Size(124, 20);
-            this.txtPass.TabIndex = 1;
-            // 
             // btnLogin
             // 
             this.btnLogin.Location = new System.Drawing.Point(6, 71);
@@ -124,6 +115,20 @@
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
+            // txtPass
+            // 
+            this.txtPass.Location = new System.Drawing.Point(6, 45);
+            this.txtPass.Name = "txtPass";
+            this.txtPass.Size = new System.Drawing.Size(124, 20);
+            this.txtPass.TabIndex = 1;
+            // 
+            // txtUser
+            // 
+            this.txtUser.Location = new System.Drawing.Point(6, 19);
+            this.txtUser.Name = "txtUser";
+            this.txtUser.Size = new System.Drawing.Size(124, 20);
+            this.txtUser.TabIndex = 0;
+            // 
             // webBrowser1
             // 
             this.webBrowser1.Location = new System.Drawing.Point(18, 141);
@@ -133,11 +138,51 @@
             this.webBrowser1.TabIndex = 904;
             this.webBrowser1.Url = new System.Uri("", System.UriKind.Relative);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.btnCreate);
+            this.groupBox3.Controls.Add(this.txtTitle);
+            this.groupBox3.Location = new System.Drawing.Point(260, 12);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(166, 102);
+            this.groupBox3.TabIndex = 905;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Quiz";
+            // 
+            // txtTitle
+            // 
+            this.txtTitle.Location = new System.Drawing.Point(6, 19);
+            this.txtTitle.Name = "txtTitle";
+            this.txtTitle.Size = new System.Drawing.Size(154, 20);
+            this.txtTitle.TabIndex = 0;
+            // 
+            // btnCreate
+            // 
+            this.btnCreate.Location = new System.Drawing.Point(6, 71);
+            this.btnCreate.Name = "btnCreate";
+            this.btnCreate.Size = new System.Drawing.Size(154, 22);
+            this.btnCreate.TabIndex = 3;
+            this.btnCreate.Text = "Create";
+            this.btnCreate.UseVisualStyleBackColor = true;
+            this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(441, 37);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(95, 67);
+            this.button1.TabIndex = 906;
+            this.button1.Text = "test";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(577, 475);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -149,6 +194,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -164,6 +211,10 @@
         private System.Windows.Forms.TextBox txtPass;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TextBox txtTitle;
+        private System.Windows.Forms.Button btnCreate;
+        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -27,8 +27,10 @@ namespace KahootConverter2
         String[] qData;
         String[] aData;
         TextBox[] textboxA = new TextBox[50];
+        bool loggedIn = false; bool scraped = false;
+        bool firstLoad = true;
         int count = 0;
-        int cur;
+        int cur, itteration, answer;
 
         public void placeHolder(TextBox textbox, String text, Button button2)
         {
@@ -88,15 +90,14 @@ namespace KahootConverter2
                     data = client.DownloadString(url);
                     kData = client.DownloadString("https://create.kahoot.it/#login");
                 }
+                qData = data.Split(new string[] { "<span class='TermText qDef lang-en'>" }, StringSplitOptions.None);
+                aData = data.Split(new string[] { "<span class='TermText qWord lang-en'>" }, StringSplitOptions.None);
+                title = data.Split(new string[] { "<title>Test: " }, StringSplitOptions.None)[1].Split(new string[] { " | Quizlet</title>" }, StringSplitOptions.None)[0];
+                this.Text = "Kahoot Converter - " + title + " - " + nmQuestions.Text + " Questions";
             } catch
             {
                 MessageBox.Show("Invalid ID", "Error");
             }
-
-            qData = data.Split(new string[] { "<span class='TermText qDef lang-en'>"}, StringSplitOptions.None);
-            aData = data.Split(new string[] { "<span class='TermText qWord lang-en'>" }, StringSplitOptions.None);
-            title = data.Split(new string[] { "<title>Test: " }, StringSplitOptions.None)[1].Split(new string[] { " | Quizlet</title>" }, StringSplitOptions.None)[0];
-            this.Text = "Kahoot Converter - " + title + " - " + nmQuestions.Text + " Questions";
         }
 
         private static void WebBrowserVersionEmulation()
@@ -127,6 +128,8 @@ namespace KahootConverter2
             placeHolder(txtSite, "Quizlet ID", btnScrape);
             placeHolder(txtUser, "Kahoot User", null);
             placeHolder(txtPass, "Kahoot Pass", btnLogin);
+            placeHolder(txtTitle, "Quiz Title", null);
+            groupBox3.Enabled = false;
             WebBrowserVersionEmulation();
         }
 
@@ -136,6 +139,11 @@ namespace KahootConverter2
             {
                 webBrowser1.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(webBrowser1_DocumentCompleted);
                 webBrowser1.DocumentText = kData;
+                loggedIn = true;
+                if (scraped)
+                {
+                    groupBox3.Enabled = true;
+                }
                 webBrowser1.Navigate("https://create.kahoot.it/#login");
             } else
             {
@@ -143,19 +151,80 @@ namespace KahootConverter2
             }
         }
 
-        void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             HtmlElement head = webBrowser1.Document.GetElementsByTagName("head")[0];
             HtmlElement scriptEl = webBrowser1.Document.CreateElement("script");
             IHTMLScriptElement element = (IHTMLScriptElement)scriptEl.DomElement;
-            element.text = "function logIn() { var inpObj = document.getElementsByTagName('input'); inpObj[0].value = \"" + txtUser.Text + "\"; inpObj[1].value = \"" + txtPass.Text + "\";var e = jQuery.Event(\"keypress\");e.which = 13; e.keyCode = 13; var btns = document.getElementsByClassName(\"btn register\"); $(btns[1]).trigger(e);}";
+            element.text = "function newQues() { editor.setValue('" + qData[itteration].Split(new string[] { "</span>" }, StringSplitOptions.None)[0] +"') }";
             head.AppendChild(scriptEl);
-            webBrowser1.Document.InvokeScript("logIn");
+            webBrowser1.Document.InvokeScript("newQues");
+            for (int i = 7; i <= 16; i += 3)
+            {
+                System.Threading.Thread.Sleep(1000);
+                head = webBrowser1.Document.GetElementsByTagName("head")[0];
+                scriptEl = webBrowser1.Document.CreateElement("script");
+                element = (IHTMLScriptElement)scriptEl.DomElement;
+                element.text = "function newQues" + i.ToString() + "() {var txtArea = document.getElementsByTagName('input'); var editor = new wysihtml5.Editor(txtArea[" + i.ToString() + "]); editor.setValue('" + aData[itteration + answer].Split(new string[] { "</span>" }, StringSplitOptions.None)[0] + "'); $(txtArea[" + i.ToString() + "]).data('wysihtml5').editor.setValue('a');}";
+                head.AppendChild(scriptEl);
+                webBrowser1.Document.InvokeScript("newQues" + i.ToString());
+            }
+        }
+
+        private void btnCreate_Click(object sender, EventArgs e)
+        {
+            HtmlElement head = webBrowser1.Document.GetElementsByTagName("head")[0];
+            HtmlElement scriptEl = webBrowser1.Document.CreateElement("script");
+            IHTMLScriptElement element = (IHTMLScriptElement)scriptEl.DomElement;
+            element.text = "function newQuiz() { document.getElementById(\"quiz-name\").value = \"" + txtTitle.Text + "\"; document.getElementsByClassName('btn')[2].click();}";
+            head.AppendChild(scriptEl);
+            webBrowser1.Document.InvokeScript("newQuiz");
+            System.Timers.Timer timer = new System.Timers.Timer();
+            timer.Elapsed += new System.Timers.ElapsedEventHandler(this.OnTimer);
+            timer.Interval = 5000;
+            itteration = 1;
+            answer = 0;
+            //timer.Start();
+        }
+
+        public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
+        {
+            if (itteration < qData.Length && itteration == 0)
+            {
+                HtmlElement head = webBrowser1.Document.GetElementsByTagName("head")[0];
+                HtmlElement scriptEl = webBrowser1.Document.CreateElement("script");
+                IHTMLScriptElement element = (IHTMLScriptElement)scriptEl.DomElement;
+                element.text = "function newQues() { var txtArea = document.getElementsByTagName('input'); editor.setValue('" + qData[0] + "'); var editor = new wysihtml5.Editor(txtArea[7]); editor.setValue('" + aData[itteration + answer] + "'; $(txtArea[7].data('wysihtml5').editor.setValue('a'); var editor = new wysihtml5.Editor(txtArea[9]); editor.setValue('" + aData[itteration + answer + 1] + "'; $(txtArea[9].data('wysihtml5').editor.setValue('a'); var editor = new wysihtml5.Editor(txtArea[11]); editor.setValue('" + aData[itteration + answer + 2] + "'; $(txtArea[11].data('wysihtml5').editor.setValue('a'); var editor = new wysihtml5.Editor(txtArea[13]); editor.setValue('" + aData[itteration + answer + 3] + "'; $(txtArea[13].data('wysihtml5').editor.setValue('a');}";
+                head.AppendChild(scriptEl);
+                webBrowser1.Document.InvokeScript("newQues");
+            }
+            itteration++;
+            answer++;
+        }
+
+        void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            if (firstLoad)
+            {
+                HtmlElement head = webBrowser1.Document.GetElementsByTagName("head")[0];
+                HtmlElement scriptEl = webBrowser1.Document.CreateElement("script");
+                IHTMLScriptElement element = (IHTMLScriptElement)scriptEl.DomElement;
+                element.text = "function logIn() { var inpObj = document.getElementsByTagName('input'); inpObj[0].value = \"" + txtUser.Text + "\"; inpObj[1].value = \"" + txtPass.Text + "\";var e = jQuery.Event(\"keypress\");e.which = 13; e.keyCode = 13; var btns = document.getElementsByClassName(\"btn register\"); $(btns[1]).trigger(e);}";
+                head.AppendChild(scriptEl);
+                webBrowser1.Document.InvokeScript("logIn");
+                firstLoad = false;
+            }
         }
 
         private void btnScrape_Click(object sender, EventArgs e)
         {
             getData(txtSite.Text);
+            txtTitle.Text = title;
+            scraped = true;
+            if (loggedIn)
+            {
+                groupBox3.Enabled = true;
+            }
         }
     }
 }
