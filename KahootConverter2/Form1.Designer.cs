@@ -38,8 +38,8 @@
             this.txtUser = new System.Windows.Forms.TextBox();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.txtTitle = new System.Windows.Forms.TextBox();
             this.btnCreate = new System.Windows.Forms.Button();
+            this.txtTitle = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nmQuestions)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -149,13 +149,6 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Quiz";
             // 
-            // txtTitle
-            // 
-            this.txtTitle.Location = new System.Drawing.Point(6, 19);
-            this.txtTitle.Name = "txtTitle";
-            this.txtTitle.Size = new System.Drawing.Size(154, 20);
-            this.txtTitle.TabIndex = 0;
-            // 
             // btnCreate
             // 
             this.btnCreate.Location = new System.Drawing.Point(6, 71);
@@ -166,11 +159,18 @@
             this.btnCreate.UseVisualStyleBackColor = true;
             this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
+            // txtTitle
+            // 
+            this.txtTitle.Location = new System.Drawing.Point(6, 19);
+            this.txtTitle.Name = "txtTitle";
+            this.txtTitle.Size = new System.Drawing.Size(154, 20);
+            this.txtTitle.TabIndex = 0;
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(441, 37);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(95, 67);
+            this.button1.Size = new System.Drawing.Size(34, 67);
             this.button1.TabIndex = 906;
             this.button1.Text = "test";
             this.button1.UseVisualStyleBackColor = true;

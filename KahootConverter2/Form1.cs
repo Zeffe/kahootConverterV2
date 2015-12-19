@@ -153,7 +153,7 @@ namespace KahootConverter2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            HtmlElement head = webBrowser1.Document.GetElementsByTagName("head")[0];
+            HtmlElement head = webBrowser1.Document.GetElementsByTagName("html")[0];
             HtmlElement scriptEl = webBrowser1.Document.CreateElement("script");
             IHTMLScriptElement element = (IHTMLScriptElement)scriptEl.DomElement;
             element.text = "function newQues() { editor.setValue('" + qData[itteration].Split(new string[] { "</span>" }, StringSplitOptions.None)[0] +"') }";
@@ -161,10 +161,7 @@ namespace KahootConverter2
             webBrowser1.Document.InvokeScript("newQues");
             for (int i = 7; i <= 16; i += 3)
             {
-                System.Threading.Thread.Sleep(1000);
-                head = webBrowser1.Document.GetElementsByTagName("head")[0];
-                scriptEl = webBrowser1.Document.CreateElement("script");
-                element = (IHTMLScriptElement)scriptEl.DomElement;
+                head = webBrowser1.Document.GetElementsByTagName("html")[0];
                 element.text = "function newQues" + i.ToString() + "() {var txtArea = document.getElementsByTagName('input'); var editor = new wysihtml5.Editor(txtArea[" + i.ToString() + "]); editor.setValue('" + aData[itteration + answer].Split(new string[] { "</span>" }, StringSplitOptions.None)[0] + "'); $(txtArea[" + i.ToString() + "]).data('wysihtml5').editor.setValue('a');}";
                 head.AppendChild(scriptEl);
                 webBrowser1.Document.InvokeScript("newQues" + i.ToString());
